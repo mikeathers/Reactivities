@@ -45,9 +45,9 @@ class ActivityStore {
         activities.forEach((activity) => {
           activity.date = activity.date.split(".")[0];
           this.activityRegistry.set(activity.id, activity);
+          this.loadingInitial = false;
         });
       });
-      this.loadingInitial = false;
     } catch (err) {
       runInAction("loading error", () => {
         this.loadingInitial = false;
