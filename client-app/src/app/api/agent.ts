@@ -11,6 +11,7 @@ axios.interceptors.response.use(undefined, error => {
   if (status === 404) history.push('/notfound')
   if (status === 400 && config.method === 'get' && data.errors.hasOwnProperty('id')) history.push('/notfound')
   if (status === 500) toast.error('Server error - check the terminal for more info!')
+  throw error;
 })
 
 const responseBody = (response: AxiosResponse) => response.data;
@@ -33,8 +34,8 @@ const Activities = {
   list: (): Promise<IActivity[]> => requests.get("/activities"),
   details: (id: string) => requests.get(`/activities/${id}`),
   create: (activity: IActivity) => requests.post("/activities", activity),
-  update: (actvity: IActivity) =>
-    requests.put(`/activities/${actvity.id}`, actvity),
+  update: (activity: IActivity) =>
+    requests.put(`/activities/${activity.id}`, activity),
   delete: (id: string) => requests.del(`/activities/${id}`),
 };
 
